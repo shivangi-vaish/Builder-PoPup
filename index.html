@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Third Wave Coffee | Balewadi High Street, Pune — AI Roastery & Connected Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       Site Header & Balewadi Ambient Live Status
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="top-announcement">
+      <div class="store-metrics">
+        <div class="metric-pill">
+          <span class="pulse-dot"></span>
+          <strong style="color: var(--color-green-light)">Balewadi Open</strong> · 7:00 AM – 11:30 PM
+        </div>
+        <div class="metric-pill">
+          <span>📶</span> <span id="hdrWifiSpeed">194 Mbps High-Speed 5G</span>
+        </div>
+        <div class="metric-pill">
+          <span>🎧</span> <span id="hdrNoiseLevel">52 dB Cozy Lo-Fi Ambient</span>
+        </div>
+        <div class="metric-pill">
+          <span>⚡</span> <span id="hdrPlugs">5 Outlets Free at Work Bar</span>
+        </div>
+        <div class="metric-pill" style="cursor: pointer;" onclick="switchTab('view-community')" title="View Active Patrons on Cafe Social Radar">
+          <span>🤝</span> <strong id="hdrSocialCount" style="color: var(--color-amber-light);">6 Active on Social Radar</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 0.74rem; color: var(--color-gold);">📍 Balewadi High Street, Pune</span>
+        <button class="btn-icon" id="btnSoundAmbience" title="Toggle Cafe Background Sound" style="width: 26px; height: 26px; font-size: 0.75rem;">🎵</button>
+        <button class="btn-icon" id="btnSoundMute" title="Mute/Unmute Audio" style="width: 26px; height: 26px; font-size: 0.75rem;">🔔</button>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <div class="brand-block">
+        <div class="brand-logo">☕</div>
+        <div class="brand-text">
+          <h1>THIRD WAVE COFFEE</h1>
+          <span>BALEWADI HIGH STREET · ROASTERY & AI BAR</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Customer View) -->
+      <div class="nav-tabs" id="customerNavTabs">
+        <button class="nav-tab-btn" data-target="view-menu">
+          <span>📖</span> Menu & Categories
+        </button>
+        <button class="nav-tab-btn active" data-target="view-meal-companion">
+          <span>🍽️</span> Enjoy Meal
+        </button>
+        <button class="nav-tab-btn" data-target="view-concierge">
+          <span>✨</span> Ask Aura AI
+        </button>
+        <button class="nav-tab-btn" data-target="view-community">
+          <span>🤝</span> Cafe Social & Radar
+        </button>
+        <button class="nav-tab-btn" data-target="view-tables">
+          <span>🪑</span> Floor Plan
+        </button>
+        <button class="nav-tab-btn" data-target="view-order-tracker">
+          <span>⏱️</span> Order Tracker
+        </button>
+      </div>
+
+      <!-- Header Action Controls -->
+      <div class="header-actions">
+        <!-- Interactive Table Barcode Pill -->
+        <div class="header-table-badge" id="hdrTableBadge" onclick="openTableBarcodeModal()" title="View / Scan Table Barcode">
+          <span>🏷️</span>
+          <strong id="hdrTableNumberDisplay">Table T-05</strong>
+          <span style="font-size:0.7rem; color:var(--text-muted);">[Scan QR]</span>
+        </div>
+
+        <!-- Switch between Customer Lounge & Barista Station -->
+        <button class="btn-mode-toggle" id="btnToggleMode">
+          <span id="modeIcon">🧑‍🍳</span>
+          <span id="modeLabel">Barista KDS</span>
+        </button>
+
+        <!-- Gemini API Key Setup -->
+        <button class="btn-icon" id="btnOpenSettings" title="AI Settings & Gemini API Key">
+          ⚙️
+        </button>
+
+        <!-- Cart Trigger Button -->
+        <button class="cart-btn" id="btnOpenCart">
+          <span>🛍️ Cart</span>
+          <span class="cart-count" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       Hero Section
+       ========================================================================== -->
+  <section class="hero-banner" id="heroBannerSection">
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>✨</span> Smart QR & Barcode Ordering
+        </div>
+        <h2>Scan Your Table Barcode. <span>Order with Ease.</span></h2>
+        <p>
+          Welcome to Third Wave Coffee Balewadi. Scan your table barcode to order directly to your seat, explore our 8 curated menu categories, or let <strong>Aura AI</strong> pair your drink and meal.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="openTableBarcodeModal()">
+            <span>📷</span> Scan / View Table Barcode
+          </button>
+          <button class="btn-secondary" onclick="switchTab('view-menu')">
+            <span>📖</span> Browse All Menu Categories
+          </button>
+          <button class="btn-secondary" onclick="switchTab('view-meal-companion')">
+            <span>🍽️</span> Enjoy Meal Companion
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-badge-panel">
+        <div class="hero-metric-row">
+          <span class="label">Your Table</span>
+          <span class="val" style="color: var(--color-gold); cursor:pointer;" onclick="openTableBarcodeModal()" id="heroTableDisplay">Table T-05 (Work Bar) 🏷️</span>
+        </div>
+        <div class="hero-metric-row">
+          <span class="label">Table Barcode</span>
+          <span class="val" style="font-family:monospace; color:var(--color-amber-light);" id="heroBarcodeText">TWC-BLW-T-05</span>
+        </div>
+        <div class="hero-metric-row">
+          <span class="label">High-Speed Wi-Fi</span>
+          <span class="val" style="color: var(--color-green-light)">194 Mbps (Password: thirdwave5g)</span>
+        </div>
+        <div class="hero-metric-row">
+          <span class="label">Order Mode</span>
+          <span class="val">Contactless Table Delivery ✓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Main Application Views Container
+       ========================================================================== -->
+  <main class="main-wrapper">
+
+    <!-- ========================================================================
+         VIEW 1: MENU & CATEGORIES WITH TABLE BARCODE (REQUESTED FEATURE)
+         ======================================================================== -->
+    <section class="view-section" id="view-menu">
+
+      <!-- Table Barcode Quick Order Banner -->
+      <div class="table-barcode-strip">
+        <div class="table-barcode-info">
+          <div class="table-barcode-icon">🏷️</div>
+          <div class="table-barcode-text">
+            <h4>
+              <span id="menuActiveTableTitle">Ordering Directly to Table T-05</span>
+              <span class="badge badge-green">QR Verified</span>
+            </h4>
+            <p id="menuActiveTableSubtitle">Communal Work Bar · Universal Laptop Power Sockets Active ⚡</p>
+          </div>
+        </div>
+
+        <div class="table-barcode-actions">
+          <!-- Mini SVG barcode preview container -->
+          <div id="menuMiniBarcodeWrap" style="cursor: pointer;" onclick="openTableBarcodeModal()" title="Click to enlarge Table QR & Barcode Stand">
+            <!-- Injected via barcode engine -->
+          </div>
+          <button class="btn-primary" onclick="openTableBarcodeModal()" style="font-size: 0.82rem; padding: 8px 16px;">
+            <span>📷</span> Scan / Change Table
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Controls: Categories Nav & Search -->
+      <div class="menu-controls">
+        <div class="menu-top-row">
+          <div style="font-size: 0.88rem; font-weight: 700; color: var(--color-crema); display: flex; align-items: center; gap: 8px;">
+            <span>📂</span> Explore Menu Categories:
+          </div>
+
+          <div class="search-filter-box">
+            <input type="text" id="menuSearchInput" placeholder="Search coffee, bagels, croissant..." style="width: 220px;">
+            <select id="dietaryFilterSelect">
+              <option value="all">All Diets</option>
+              <option value="vegan">Vegan / Plant-Based</option>
+              <option value="low-acid">Low Acidity</option>
+              <option value="high-caf">High Caffeine</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Category Chips Bar -->
+        <div class="category-nav-bar" id="menuCatNav">
+          <!-- Rendered dynamically from MENU_CATEGORIES with icons & counts -->
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="menu-grid" id="menuItemsGrid">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         VIEW 2: "ENJOY MY MEAL" — AI DINING COMPANION (FLAGSHIP FEATURE)
+         ======================================================================== -->
+    <section class="view-section active" id="view-meal-companion">
+
+      <!-- Mindful Dining Status Banner -->
+      <div class="meal-hero-card">
+        <div class="meal-hero-text">
+          <div class="badge badge-amber" style="margin-bottom: 6px;">AI Mindful Dining Companion</div>
+          <h3>Enjoy Your Meal at Table <span id="companionTableId">T-05</span></h3>
+          <p>
+            Take a slow breath, silence the rush, and let Aura guide your senses. Discover how single-origin acidity elevates buttery croissants and truffle sourdough.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="narrateMealSavoring()">
+            <span>🔊</span> Aura Guided Tasting Voice
+          </button>
+          <button class="btn-secondary" onclick="triggerZenBell()">
+            <span>🧘</span> Mindfulness Bell
+          </button>
+        </div>
+      </div>
+
+      <!-- 1-Tap AI Curated Meal Combos -->
+      <div class="combos-headline">
+        <div>
+          <h3><span>✨</span> 1-Tap AI Curated Meal Combos</h3>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);">Scientifically paired by Aura to harmonize acidity, body, and pastry sweetness.</p>
+        </div>
+        <span class="badge badge-gold">Save 10% on Complete Meals</span>
+      </div>
+
+      <div class="combos-grid" id="combosContainer">
+        <!-- Injected via JavaScript from AI_MEAL_COMBOS -->
+      </div>
+
+      <!-- Interactive Guided Savoring Walkthrough & At-Table Quick Assistance -->
+      <div class="savor-section">
+
+        <!-- Left: Guided Sensory Tasting Stepper -->
+        <div class="savor-card">
+          <div class="savor-header">
+            <div>
+              <div class="badge badge-gold" style="margin-bottom: 4px;">Sensory Ritual</div>
+              <h4 style="font-size: 1.25rem; color: var(--text-primary);" id="savorWalkthroughTitle">
+                How to Savor Baarbara Honey V60 & Almond Croissant
+              </h4>
+            </div>
+            <button class="btn-secondary" style="font-size: 0.78rem; padding: 6px 12px;" onclick="cycleSampleMealGuide()">
+              <span>🔄</span> Switch Dish
+            </button>
+          </div>
+
+          <div class="savor-steps-list" id="savorStepsContainer">
+            <!-- Injected dynamically -->
+          </div>
+
+          <!-- Ambient Cafe Soundscape Selector -->
+          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-crema); margin-bottom: 6px;">
+              🎵 Choose Your Meal Ambience Soundscape:
+            </div>
+            <div class="ambience-pills">
+              <button class="ambience-pill-btn active" data-theme="lofi" onclick="selectAmbienceTheme('lofi', this)">
+                <span>🎧</span> Lo-Fi Acoustic Chill
+              </button>
+              <button class="ambience-pill-btn" data-theme="rain" onclick="selectAmbienceTheme('rain', this)">
+                <span>🌧️</span> Pune Rain on Window
+              </button>
+              <button class="ambience-pill-btn" data-theme="zen" onclick="selectAmbienceTheme('zen', this)">
+                <span>🧘</span> Zen Focus Tone (528 Hz)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 1-Tap At-Table Assistance & Wellness -->
+        <div>
+          <!-- Table Assistance Card -->
+          <div class="table-assist-card" style="margin-bottom: 24px;">
+            <div class="badge badge-amber" style="margin-bottom: 6px;">At-Table Service</div>
+            <h4 style="font-size: 1.15rem;">Need Anything at Table T-05?</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">One tap sends an instant notification to Rohan & Ananya on the Barista team.</p>
+
+            <div class="table-assist-grid">
+              <button class="assist-btn" onclick="requestTableAssistance('water')">
+                <span class="assist-icon">💧</span>
+                <div>
+                  <div class="assist-label">Fresh Water</div>
+                  <div class="assist-sub">Served chilled or room temp</div>
+                </div>
+              </button>
+
+              <button class="assist-btn" onclick="requestTableAssistance('warm')">
+                <span class="assist-icon">🥐</span>
+                <div>
+                  <div class="assist-label">Reheat Pastry</div>
+                  <div class="assist-sub">Crisp for 30 seconds</div>
+                </div>
+              </button>
+
+              <button class="assist-btn" onclick="requestTableAssistance('cutlery')">
+                <span class="assist-icon">🍴</span>
+                <div>
+                  <div class="assist-label">Extra Cutlery</div>
+                  <div class="assist-sub">Napkins & wooden fork</div>
+                </div>
+              </button>
+
+              <button class="assist-btn" onclick="requestTableAssistance('wifi')">
+                <span class="assist-icon">📶</span>
+                <div>
+                  <div class="assist-label">Copy Wi-Fi</div>
+                  <div class="assist-sub">194 Mbps 5G password</div>
+                </div>
+              </button>
+
+              <button class="assist-btn" style="grid-column: span 2;" onclick="requestTableAssistance('bill')">
+                <span class="assist-icon">🧾</span>
+                <div>
+                  <div class="assist-label">Pay via UPI QR at Table</div>
+                  <div class="assist-sub">Instant contactless payment</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Post-Meal Wellness Advisor -->
+          <div class="table-assist-card">
+            <div class="badge badge-green" style="margin-bottom: 6px;">AI Wellness Check</div>
+            <h4 style="font-size: 1.15rem; margin-bottom: 4px;">How Are You Feeling Post-Meal?</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">Aura provides digestive and focus advice tailored to your state.</p>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+              <button class="prompt-chip" onclick="showDigestiveTip('full')">Full & Satisfied 🌿</button>
+              <button class="prompt-chip" onclick="showDigestiveTip('energized')">Peak Energy ⚡</button>
+              <button class="prompt-chip" onclick="showDigestiveTip('sweet')">Sweet Cravings Done 🍫</button>
+            </div>
+
+            <div id="wellnessTipBox" style="background: var(--bg-elevated); border-left: 3px solid var(--color-green-light); padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-secondary);">
+              Select an option above to receive an instant mindful suggestion from Aura!
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================
+         VIEW 3: AURA AI CONCIERGE & FLAVOR QUIZ (CUSTOMER)
+         ======================================================================== -->
+    <section class="view-section" id="view-concierge">
+      <div class="ai-layout-grid">
+
+        <!-- AI Conversational Barista Column -->
+        <div class="ai-card">
+          <div class="ai-header-status">
+            <div class="ai-avatar-group">
+              <div class="ai-avatar">
+                ☕
+                <span class="online-pip"></span>
+              </div>
+              <div class="ai-title">
+                <h3>Aura — AI Barista & Dining Concierge</h3>
+                <p>Third Wave Coffee, Balewadi High Street · Online</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-icon" id="btnAudioReadout" title="Listen to last message voice readout" style="font-size: 0.85rem;">
+                🔊
+              </button>
+              <button class="btn-icon" id="btnClearChat" title="Reset Conversation" style="font-size: 0.85rem;">
+                🔄
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Messages Container -->
+          <div class="chat-box" id="chatBox">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Quick Suggestion Prompt Chips -->
+          <div class="prompt-suggestions">
+            <button class="prompt-chip" onclick="sendQuickPrompt('What meal combo do you recommend for lunch?')">🥐 Best Lunch Combo</button>
+            <button class="prompt-chip" onclick="sendQuickPrompt('What single origins are freshest today?')">🌱 Freshest Estates Today</button>
+            <button class="prompt-chip" onclick="sendQuickPrompt('I have a sensitive stomach, what is low acid?')">💧 Low Acid Brews</button>
+            <button class="prompt-chip" onclick="sendQuickPrompt('Which table has the fastest Wi-Fi and power plugs?')">💻 Best Work Seats</button>
+            <button class="prompt-chip" onclick="sendQuickPrompt('Explain your V60 extraction parameters.')">🧪 V60 Barista Guide</button>
+          </div>
+
+          <!-- Chat Input Row -->
+          <div class="chat-input-row">
+            <button class="voice-btn" id="btnVoiceMic" title="Voice Input with Aura">
+              🎙️
+            </button>
+            <input type="text" id="chatInput" placeholder="Ask Aura about roasts, brews, seating, or food..." autocomplete="off">
+            <button class="send-btn" id="btnSendChat" title="Send Question">
+              ➤
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Taste Matchmaker Quiz Column -->
+        <div class="quiz-card">
+          <div class="quiz-header">
+            <div class="badge badge-amber" style="margin-bottom: 6px;">AI Sensory Engine</div>
+            <h3>Dial-In Your Perfect Brew</h3>
+            <p>Answer 3 quick questions. Aura's algorithm evaluates estate acidity, roast degree, and brewing ratio to craft your bespoke cup.</p>
+          </div>
+
+          <div class="quiz-steps" id="quizContainer">
+            <!-- Step 1: Mood & Energy -->
+            <div class="quiz-step-block">
+              <div class="quiz-step-title">
+                <span>1.</span> What's your current vibe and energy need?
+              </div>
+              <div class="choice-grid" data-group="mood">
+                <button class="choice-btn selected" data-value="focus">
+                  <span class="choice-icon">⚡</span>
+                  <span class="choice-label">Deep Focus & Sprint</span>
+                  <span class="choice-desc">High caffeine kick for coding/work</span>
+                </button>
+                <button class="choice-btn" data-value="gentle">
+                  <span class="choice-icon">🌿</span>
+                  <span class="choice-label">Gentle & Stomach-Friendly</span>
+                  <span class="choice-desc">Low acidity, soothing and smooth</span>
+                </button>
+                <button class="choice-btn" data-value="adventure">
+                  <span class="choice-icon">🍓</span>
+                  <span class="choice-label">Sensory Exploration</span>
+                  <span class="choice-desc">Bright fruity notes & floral clarity</span>
+                </button>
+                <button class="choice-btn" data-value="comfort">
+                  <span class="choice-icon">🍫</span>
+                  <span class="choice-label">Sweet Indulgence</span>
+                  <span class="choice-desc">Velvety milk chocolate & caramel</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Flavor Notes -->
+            <div class="quiz-step-block">
+              <div class="quiz-step-title">
+                <span>2.</span> What flavor profile excites your palate?
+              </div>
+              <div class="choice-grid" data-group="flavor">
+                <button class="choice-btn selected" data-value="fruity">
+                  <span class="choice-icon">🍒</span>
+                  <span class="choice-label">Vibrant Fruit & Citrus</span>
+                  <span class="choice-desc">Berries, orange blossom, crisp apple</span>
+                </button>
+                <button class="choice-btn" data-value="nutty">
+                  <span class="choice-icon">🌰</span>
+                  <span class="choice-label">Cocoa & Toasted Nut</span>
+                  <span class="choice-desc">Dark chocolate, roasted almond, malt</span>
+                </button>
+                <button class="choice-btn" data-value="earthy">
+                  <span class="choice-icon">🪵</span>
+                  <span class="choice-label">Smoky & Spiced</span>
+                  <span class="choice-desc">Tobacco, dark molasses, monsoon spice</span>
+                </button>
+                <button class="choice-btn" data-value="caramel">
+                  <span class="choice-icon">🍯</span>
+                  <span class="choice-label">Honey & Toffee</span>
+                  <span class="choice-desc">Brown sugar, vanilla, buttery sweetness</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Brew / Dairy Preference -->
+            <div class="quiz-step-block">
+              <div class="quiz-step-title">
+                <span>3.</span> How do you prefer your cup served?
+              </div>
+              <div class="choice-grid" data-group="milk">
+                <button class="choice-btn selected" data-value="black">
+                  <span class="choice-icon">☕</span>
+                  <span class="choice-label">Pure Black Extraction</span>
+                  <span class="choice-desc">Pourover, Aeropress, or Cold Brew</span>
+                </button>
+                <button class="choice-btn" data-value="oat">
+                  <span class="choice-icon">🌾</span>
+                  <span class="choice-label">Steamed Oat Milk</span>
+                  <span class="choice-desc">Plant-based creamy microfoam</span>
+                </button>
+                <button class="choice-btn" data-value="dairy">
+                  <span class="choice-icon">🥛</span>
+                  <span class="choice-label">Farm Fresh A2 Dairy</span>
+                  <span class="choice-desc">Classic silky latte or flat white</span>
+                </button>
+                <button class="choice-btn" data-value="cold">
+                  <span class="choice-icon">🧊</span>
+                  <span class="choice-label">Chilled on the Rocks</span>
+                  <span class="choice-desc">Espresso tonic or nitro cold brew</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btnCalculateProfile" style="width: 100%; justify-content: center; margin-top: 8px;">
+              <span>🔮</span> Calculate My Sensory Brew Match
+            </button>
+          </div>
+
+          <!-- Dynamic Sensory Match Result Card -->
+          <div class="result-card" id="quizResultBox">
+            <div class="result-badge-row">
+              <span class="badge badge-amber" id="resultBadge">Handpicked For You</span>
+              <span class="match-score" id="resultScore">98% Sensory Match</span>
+            </div>
+            <h4 class="result-title" id="resultItemName">Artisan V60 Pourover</h4>
+            <div class="result-estate" id="resultEstateName">Estate: Baarbara Honey Sun-Dried (Chikmagalur)</div>
+            <p class="result-reason" id="resultReason">
+              Our Baarbara Estate honey-processed beans through the Hario V60 extract glistening red berries and wild honey aromas without bitterness.
+            </p>
+
+            <div class="brew-spec-pills" id="resultSpecs">
+              <span class="spec-pill" id="specRatio">Ratio: 1:16 (15g : 240ml)</span>
+              <span class="spec-pill" id="specTemp">Temp: 92.5°C Filtered</span>
+              <span class="spec-pill" id="specGrind">Grind: Medium-Fine (#18)</span>
+            </div>
+
+            <div class="pairing-box" id="resultPairing">
+              🥐 <strong>Chef's Recommended Pairing:</strong> Twice-Baked Almond Frangipane Croissant
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-primary" id="btnOrderMatchedBrew" style="flex: 1; justify-content: center;">
+                <span>🛒</span> Add Dialed Brew to Order
+              </button>
+              <button class="btn-secondary" onclick="shareBrewMatch()" title="Share Tasting Card">
+                <span>📤</span> Share
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         VIEW: CAFE SOCIAL & AI VIBE RADAR (REQUESTED AI COMMUNITY FEATURE)
+         ======================================================================== -->
+    <section class="view-section" id="view-community">
+
+      <!-- Community Hero Banner -->
+      <div class="community-hero-card">
+        <div class="community-hero-text">
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
+            <span class="badge badge-amber">AI Connected Cafe Experience</span>
+            <span class="badge badge-green">● Live Roastery Radar Active</span>
+          </div>
+          <h3>Balewadi Social & Vibe Radar <span>🤝</span></h3>
+          <p>
+            You are sharing the space with startup founders, designers, writers, and specialty coffee lovers. Aura AI helps you discover compatible tables, craft effortless icebreakers, share live cupping reviews, or surprise a neighbor with a coffee or fresh treat!
+          </p>
+          <div class="community-metrics-strip">
+            <div class="comm-metric">
+              <strong>6 Tables</strong>
+              <span>Active on Radar</span>
+            </div>
+            <div class="comm-metric">
+              <strong>96%</strong>
+              <span>Peak Vibe Match</span>
+            </div>
+            <div class="comm-metric">
+              <strong>89 Claps</strong>
+              <span>Cupping Wall Today</span>
+            </div>
+            <div class="comm-metric">
+              <strong>148 Votes</strong>
+              <span>Daily Coffee Debate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="community-hero-actions">
+          <button class="btn-primary" onclick="openBeaconModal()">
+            <span>✏️</span> Set My Table Vibe Beacon
+          </button>
+          <button class="btn-secondary" onclick="scrollToCuppingWall()">
+            <span>📝</span> Share Tasting Review
+          </button>
+        </div>
+      </div>
+
+      <!-- User's Active Table Vibe Beacon Banner -->
+      <div class="my-beacon-card" id="myBeaconCard">
+        <div class="my-beacon-left">
+          <div class="my-beacon-avatar" id="myBeaconAvatar">👨‍💻</div>
+          <div class="my-beacon-info">
+            <div class="my-beacon-header">
+              <span class="my-beacon-name" id="myBeaconName">Vaishnav</span>
+              <span class="badge badge-gold" id="myBeaconTable">Table T-05 · Work Bar</span>
+              <span class="badge badge-green" id="myBeaconStatusBadge">Deep Focus Sprint 💻</span>
+            </div>
+            <p class="my-beacon-msg" id="myBeaconMsg">Building an AI connected roastery app. Down for coffee trivia or LLM chats.</p>
+            <div class="my-beacon-meta">
+              <span style="font-size: 0.78rem; color: var(--color-amber-light);" id="myBeaconBrew">☕ Sipping: Artisan V60 Pourover (Baarbara Honey)</span>
+              <div class="my-beacon-tags" id="myBeaconTags">
+                <span class="tag-chip">#AIAgents</span>
+                <span class="tag-chip">#JavaScript</span>
+                <span class="tag-chip">#HarioV60</span>
+                <span class="tag-chip">#DeepWork</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-beacon-right">
+          <button class="btn-secondary" onclick="openBeaconModal()" style="font-size: 0.8rem; padding: 6px 14px;">
+            <span>✏️</span> Edit Beacon
+          </button>
+          <button class="btn-icon" id="btnToggleDiscoverable" onclick="toggleDiscoverable()" title="Toggle Radar Visibility" style="font-size: 0.9rem; padding: 6px 10px; width: auto; border-radius: var(--radius-sm);">
+            <span>🟢 Public on Radar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Social Content: Radar & Cupping Grid -->
+      <div class="social-layout-grid">
+
+        <!-- Column 1: Live Interactive Social Radar -->
+        <div class="social-radar-col">
+          <div class="section-headline">
+            <div>
+              <h3><span>📡</span> Cafe Social Radar & Matchmaker</h3>
+              <p style="font-size: 0.82rem; color: var(--text-secondary);">
+                Checked-in patrons at Balewadi High Street. Aura AI calculates real-time roastery compatibility!
+              </p>
+            </div>
+            <div class="radar-filter-bar" id="radarFilterBar">
+              <button class="filter-pill active" data-vibe="all" onclick="filterRadar('all')">All Tables (6)</button>
+              <button class="filter-pill" data-vibe="chat" onclick="filterRadar('chat')">☕ Open to Chat</button>
+              <button class="filter-pill" data-vibe="focus" onclick="filterRadar('focus')">💻 Deep Focus</button>
+              <button class="filter-pill" data-vibe="brainstorm" onclick="filterRadar('brainstorm')">🚀 Startup Tech</button>
+              <button class="filter-pill" data-vibe="pets" onclick="filterRadar('pets')">🐕 Pet Patio</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Social Radar Cards -->
+          <div class="radar-cards-list" id="socialRadarGrid">
+            <!-- Injected dynamically via renderSocialRadar() -->
+          </div>
+        </div>
+
+        <!-- Column 2: Community Cupping Feed & Daily Poll -->
+        <div class="community-feed-col">
+
+          <!-- Interactive Cupping Note Creator -->
+          <div class="cupping-creator-card" id="cuppingCreatorCard">
+            <div class="cupping-creator-header">
+              <div>
+                <span class="badge badge-amber">Balewadi Tasting Feed</span>
+                <h4 style="font-size: 1.15rem; margin-top: 4px;">Share Your Tasting Notes</h4>
+              </div>
+              <span class="badge badge-gold">+25 Bean Points</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+              Log what you are tasting right now. Other tables can clap or react with cup clinks!
+            </p>
+
+            <div style="margin-bottom: 10px;">
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Select Brew / Estate:</label>
+              <select id="postBrewSelect" style="width: 100%; font-size: 0.82rem; padding: 8px 10px;">
+                <option value="Artisan V60 Pourover (Baarbara Honey)">Artisan V60 Pourover (Baarbara Honey Estate)</option>
+                <option value="Cascade Nitro Cold Brew (Attikan Washed)">Cascade Nitro Cold Brew (Attikan Washed)</option>
+                <option value="Balewadi Sunset Espresso Tonic">Balewadi Sunset Espresso Tonic</option>
+                <option value="Third Wave Signature Flat White (Oat)">Third Wave Signature Flat White (Oat Milk)</option>
+                <option value="Monsoon Malabar AA (French Press)">Monsoon Malabar AA (French Press)</option>
+                <option value="Syphon Clarified Micro-Lot (Kelagur Anaerobic)">Syphon Clarified (Kelagur Anaerobic)</option>
+              </select>
+            </div>
+
+            <!-- Flavor Tag Chips -->
+            <div style="margin-bottom: 10px;">
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Tap Flavor Descriptors:</label>
+              <div class="flavor-chips-grid" id="flavorTagsGrid">
+                <button type="button" class="flavor-tag-btn selected" onclick="toggleFlavorTag(this)">Bright Citrus 🍋</button>
+                <button type="button" class="flavor-tag-btn selected" onclick="toggleFlavorTag(this)">Wild Honey 🍯</button>
+                <button type="button" class="flavor-tag-btn" onclick="toggleFlavorTag(this)">Red Berries 🍓</button>
+                <button type="button" class="flavor-tag-btn" onclick="toggleFlavorTag(this)">Dark Cocoa 🍫</button>
+                <button type="button" class="flavor-tag-btn" onclick="toggleFlavorTag(this)">Jasmine Florals 🌸</button>
+                <button type="button" class="flavor-tag-btn" onclick="toggleFlavorTag(this)">Toasted Hazelnut 🌰</button>
+                <button type="button" class="flavor-tag-btn" onclick="toggleFlavorTag(this)">Low Acidity 🌿</button>
+              </div>
+            </div>
+
+            <!-- Review Content -->
+            <div style="margin-bottom: 12px;">
+              <textarea id="cuppingPostContent" rows="3" placeholder="Describe the aroma, acidity, mouthfeel, or pairing balance..." style="width: 100%; font-size: 0.82rem;"></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <button class="btn-secondary" onclick="polishMyCuppingPost()" style="font-size: 0.78rem; padding: 6px 12px;">
+                <span>✨</span> Aura Polish Prose
+              </button>
+              <button class="btn-primary" onclick="submitCommunityPost()" style="font-size: 0.82rem; padding: 8px 16px;">
+                <span>📝</span> Publish to Cupping Board
+              </button>
+            </div>
+          </div>
+
+          <!-- Balewadi Daily Debate & AI Poll -->
+          <div class="poll-card" id="communityPollCard">
+            <!-- Injected dynamically via renderCommunityPoll() -->
+          </div>
+
+          <!-- Community Tasting Notes Stream -->
+          <div class="cupping-posts-stream" id="cuppingPostsContainer">
+            <!-- Injected dynamically via renderCommunityFeed() -->
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================
+         VIEW 4: BALEWADI HIGH STREET FLOOR PLAN & WORKSTATIONS
+         ======================================================================== -->
+    <section class="view-section" id="view-tables">
+      <div class="table-map-container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.4rem; margin-bottom: 4px;">Balewadi High Street — Interactive Seating Map</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">
+              Find seats with high-speed charging outlets, check real-time availability, or select your table for direct barista service.
+            </p>
+          </div>
+          <div class="badge badge-green" id="seatAvailabilityCount">8 of 14 Tables Open</div>
+        </div>
+
+        <div class="table-legend">
+          <div class="legend-item">
+            <div class="legend-indicator indicator-available"></div>
+            <span>Available / Open</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-indicator indicator-occupied"></div>
+            <span>Occupied / In Use</span>
+          </div>
+          <div class="legend-item">
+            <span class="indicator-plug">⚡</span>
+            <span>Universal Power Plug / Laptop Friendly</span>
+          </div>
+          <div class="legend-item">
+            <span>📶</span>
+            <span>194 Mbps High-Speed Wi-Fi Zone</span>
+          </div>
+        </div>
+
+        <!-- Zones Grid -->
+        <div class="zone-grid" id="tablesZoneGrid">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Selected Table Barista Order Banner -->
+        <div style="margin-top: 24px; padding: 18px 24px; background: var(--bg-elevated); border: 1px solid var(--border-accent); border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 16px;">
+          <div>
+            <div style="font-size: 0.78rem; color: var(--color-gold); text-transform: uppercase; font-weight: 700;">Active Dine-In Selection</div>
+            <div style="font-size: 1.1rem; font-weight: 600;" id="activeTableDisplay">Table T-05: Communal Work Bar 5 (Power Plug Available)</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Any items added to your cart will be prepared and brought directly to this seat.</div>
+          </div>
+          <button class="btn-primary" onclick="switchTab('view-menu')">
+            <span>☕</span> Order to This Table
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         VIEW 5: LIVE ORDER TRACKER & TASTING JOURNAL (CUSTOMER)
+         ======================================================================== -->
+    <section class="view-section" id="view-order-tracker">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+        <!-- Live Order Progression Card -->
+        <div class="ai-card">
+          <div class="ai-header-status">
+            <div>
+              <div class="badge badge-amber" id="liveOrderBadge">Live Barista Ticket</div>
+              <h3 style="font-size: 1.25rem; margin-top: 4px;" id="liveOrderId">Order #ORD-7801</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.78rem; color: var(--text-muted);">Est. Hand-off in</span>
+              <div style="font-size: 1.2rem; font-weight: 700; color: var(--color-gold);" id="liveOrderTimer">~3 mins</div>
+            </div>
+          </div>
+
+          <!-- Progress Stepper -->
+          <div style="margin: 20px 0 26px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.78rem; font-weight: 600;">
+              <span id="stepLabel1" style="color: var(--color-green-light);">1. Grinding</span>
+              <span id="stepLabel2" style="color: var(--color-gold);">2. Extraction</span>
+              <span id="stepLabel3" style="color: var(--text-muted);">3. Steam & Plate</span>
+              <span id="stepLabel4" style="color: var(--text-muted);">4. Ready</span>
+            </div>
+            <div style="height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 999px; overflow: hidden;">
+              <div id="liveOrderProgressBar" style="height: 100%; width: 50%; background: linear-gradient(90deg, #3E8E64, #C86D3B); border-radius: 999px; transition: width 0.5s ease;"></div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+            <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-crema); margin-bottom: 8px;">Order Details (Table T-01 · Window Bar 1):</div>
+            <div id="liveOrderItemsList" style="font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span>1x Artisan V60 Pourover (Baarbara Honey)</span>
+                <span style="font-weight: 600; color: var(--text-primary);">₹240</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>1x Twice-Baked Almond Frangipane Croissant</span>
+                <span style="font-weight: 600; color: var(--text-primary);">₹250</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: rgba(0,0,0,0.3); border-left: 3px solid var(--color-amber); padding: 10px 14px; font-size: 0.78rem; color: var(--color-crema); border-radius: 4px;">
+            🧪 <strong>Barista Extraction Parameters:</strong> Hario V60: 15g Baarbara / 240ml @ 92.5°C | 45s bloom, concentric slow pour.
+          </div>
+        </div>
+
+        <!-- Wave Tasting Journal & Loyalty Stamp Card -->
+        <div class="ai-card">
+          <div class="ai-header-status">
+            <div>
+              <div class="badge badge-gold">Wave Club Member</div>
+              <h3 style="font-size: 1.25rem; margin-top: 4px;">Balewadi Tasting Journal</h3>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.78rem; color: var(--text-muted);">Bean Points</span>
+              <div style="font-size: 1.2rem; font-weight: 700; color: var(--color-gold);">380 pts</div>
+            </div>
+          </div>
+
+          <!-- Digital Stamp Card -->
+          <div style="background: linear-gradient(135deg, #24160F, #19100B); border: 1px solid var(--color-gold); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;">
+              <span>Pourover Passport (4 / 5 Brews)</span>
+              <span style="color: var(--color-gold);">1 more brew for a free V60!</span>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: space-between;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-amber); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 10px rgba(200, 109, 59, 0.4);">☕</div>
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-amber); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 10px rgba(200, 109, 59, 0.4);">☕</div>
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-amber); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 10px rgba(200, 109, 59, 0.4);">☕</div>
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-amber); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 10px rgba(200, 109, 59, 0.4);">☕</div>
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); border: 2px dashed var(--color-gold); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--color-gold);">🎁</div>
+            </div>
+          </div>
+
+          <!-- Log Cupping Notes Form -->
+          <div style="background: var(--bg-elevated); border-radius: var(--radius-md); padding: 16px;">
+            <div style="font-size: 0.88rem; font-weight: 600; margin-bottom: 8px;">Log Sensory Notes on Today's Cup:</div>
+            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+              <button class="prompt-chip" onclick="toggleTastingTag(this)">Bright Citrus 🍋</button>
+              <button class="prompt-chip" onclick="toggleTastingTag(this)">Dark Cocoa 🍫</button>
+              <button class="prompt-chip" onclick="toggleTastingTag(this)">Jasmine Florals 🌸</button>
+              <button class="prompt-chip" onclick="toggleTastingTag(this)">Wild Honey 🍯</button>
+              <button class="prompt-chip" onclick="toggleTastingTag(this)">Red Berries 🍓</button>
+            </div>
+            <textarea id="cuppingJournalNotes" placeholder="Write your personal sensory cupping observations..." rows="2" style="width: 100%; margin-bottom: 10px; font-size: 0.82rem;"></textarea>
+            <button class="btn-primary" onclick="saveTastingLog()" style="width: 100%; justify-content: center; font-size: 0.85rem;">
+              <span>📝</span> Save to My Balewadi Tasting Log (+25 pts)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         VIEW 6: CAFE TEAM OPERATIONS PORTAL (BARISTA & MANAGER KDS)
+         ======================================================================== -->
+    <section class="view-section" id="view-barista-ops">
+      <!-- Operations Live KPI Bar -->
+      <div class="ops-kpi-bar">
+        <div class="kpi-card">
+          <div class="kpi-title">Active Orders in Queue</div>
+          <div class="kpi-val" id="kpiActiveOrders">3</div>
+          <div class="kpi-sub">Avg Prep: 3m 45s (On Target)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Balewadi Store Rush</div>
+          <div class="kpi-val" style="color: var(--color-amber-light);">64% Occupied</div>
+          <div class="kpi-sub">8 seats available (Work Bar 6 open)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Hopper Freshness Window</div>
+          <div class="kpi-val" style="color: var(--color-green-light);">98% Optimal</div>
+          <div class="kpi-sub">Baarbara & Attikan in peak window</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Today's Brew Volume</div>
+          <div class="kpi-val">142 Cups</div>
+          <div class="kpi-sub">V60 & Nitro Cold Brew leading</div>
+        </div>
+      </div>
+
+      <!-- Live Barista KDS Ticket Board -->
+      <h3 style="font-size: 1.3rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <span>Live Kitchen & Barista Display System (KDS)</span>
+        <button class="btn-secondary" onclick="simulateNewIncomingOrder()" style="font-size: 0.78rem; padding: 6px 14px;">
+          <span>⚡</span> Simulate Incoming Order
+        </button>
+      </h3>
+
+      <div class="kds-board">
+        <!-- Column 1: Order Placed / Grinding -->
+        <div class="kds-column">
+          <div class="kds-col-header">
+            <h4>1. Grinding Station</h4>
+            <span class="badge badge-amber" id="colGrindingCount">1</span>
+          </div>
+          <div class="kds-ticket-list" id="kdsColGrinding">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Column 2: Extraction / Brewing / Steaming -->
+        <div class="kds-column">
+          <div class="kds-col-header">
+            <h4>2. Precision Extraction</h4>
+            <span class="badge badge-gold" id="colBrewingCount">1</span>
+          </div>
+          <div class="kds-ticket-list" id="kdsColBrewing">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Column 3: Ready for Table Delivery / Counter -->
+        <div class="kds-column">
+          <div class="kds-col-header">
+            <h4>3. Ready for Service</h4>
+            <span class="badge badge-green" id="colReadyCount">1</span>
+          </div>
+          <div class="kds-ticket-list" id="kdsColReady">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Lower Ops Grid: AI Inventory Guardian & Customer Recognition CRM -->
+      <div class="ops-lower-grid">
+
+        <!-- AI Inventory & Freshness Guardian -->
+        <div class="inventory-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div class="badge badge-amber">AI Roastery Guardian</div>
+            <button class="btn-secondary" onclick="simulateRestock()" style="font-size: 0.75rem; padding: 4px 10px;">
+              <span>🔄</span> Restock All Hoppers
+            </button>
+          </div>
+          <h4 style="font-size: 1.15rem; margin-bottom: 4px;">Single-Origin Hopper Levels & Roast Tracking</h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">
+            Automated consumption telemetry based on Balewadi daily orders.
+          </p>
+
+          <div class="inventory-list" id="inventoryContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Customer Recognition & AI Greeting Assistant -->
+        <div class="inventory-card">
+          <div class="badge badge-gold" style="margin-bottom: 6px;">Balewadi Regulars CRM</div>
+          <h4 style="font-size: 1.15rem; margin-bottom: 4px;">Smart Check-In & AI Greeting Briefs</h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">
+            Proactive recommendations generated when regular patrons check into the cafe.
+          </p>
+
+          <div class="crm-list" id="crmRegularsList">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       Slide-out Cart & Checkout Drawer
+       ========================================================================== -->
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 style="font-size: 1.2rem;">Your Brew & Meal Order</h3>
+      <button class="btn-icon" id="btnCloseCart">✕</button>
+    </div>
+
+    <!-- Active Table Selector in Cart with Barcode Pill -->
+    <div style="padding: 12px 20px; background: var(--bg-elevated); border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 0.78rem; color: var(--text-secondary);">Delivering to:</span>
+        <button class="badge badge-amber" onclick="openTableBarcodeModal()" style="font-size: 0.72rem; cursor:pointer;">
+          📷 Scan Barcode
+        </button>
+      </div>
+      <select id="cartTableSelect" style="padding: 4px 10px; font-size: 0.8rem;">
+        <option value="T-05">Table T-05 (Work Bar)</option>
+        <option value="T-01">Table T-01 (Window)</option>
+        <option value="T-02">Table T-02 (Window)</option>
+        <option value="T-03">Table T-03 (High Table)</option>
+        <option value="T-04">Table T-04 (High Table)</option>
+        <option value="T-06">Table T-06 (Work Bar)</option>
+        <option value="T-07">Table T-07 (Work Bar)</option>
+        <option value="T-08">Table T-08 (Work Bar)</option>
+        <option value="T-09">Table T-09 (Booth)</option>
+        <option value="T-10">Table T-10 (Armchair)</option>
+        <option value="T-11">Table T-11 (Reading Nook)</option>
+        <option value="T-12">Table T-12 (Garden Patio)</option>
+        <option value="T-13">Table T-13 (Garden Patio)</option>
+        <option value="T-14">Table T-14 (Garden Patio)</option>
+        <option value="TAKEAWAY">Takeaway Counter</option>
+      </select>
+    </div>
+
+    <div class="cart-items-wrap" id="cartItemsContainer">
+      <!-- Cart items injected here -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Total (Incl. Taxes)</span>
+        <span id="cartTotalPrice">₹0</span>
+      </div>
+      <button class="btn-primary" id="btnPlaceOrder" style="width: 100%; justify-content: center; font-size: 1rem; padding: 12px;">
+        <span>☕</span> Confirm & Send to Barista KDS
+      </button>
+      <div style="text-align: center; font-size: 0.72rem; color: var(--text-muted); margin-top: 8px;">
+        Instant dispatch to Third Wave Coffee Balewadi barista screen
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       TABLE BARCODE & QR CODE STAND MODAL (REQUESTED FEATURE)
+       ========================================================================== -->
+  <div class="modal-overlay" id="tableBarcodeModal">
+    <div class="modal-content" style="max-width: 480px;">
+      <button class="modal-close" onclick="closeTableBarcodeModal()">✕</button>
+
+      <!-- Realistic Acrylic Table Tent Design -->
+      <div class="table-tent-card">
+        <div class="table-tent-header">
+          <h4>THIRD WAVE COFFEE</h4>
+          <p>BALEWADI HIGH STREET · PUNE</p>
+        </div>
+
+        <!-- 2D QR Code SVG Display -->
+        <div class="qr-code-box" id="tableTentQrContainer">
+          <!-- Injected via tableBarcodeEngine.generateQrSvg -->
+        </div>
+
+        <!-- Linear Barcode SVG Display -->
+        <div class="barcode-box" id="tableTentBarcodeContainer">
+          <!-- Injected via tableBarcodeEngine.generateBarcodeSvg -->
+        </div>
+
+        <div class="table-tent-meta">
+          <div style="display: flex; justify-content: space-between; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">
+            <span id="tentTableNumberText">TABLE T-05</span>
+            <span style="color: var(--color-green-light);">● CHECKED IN</span>
+          </div>
+          <div id="tentTableZoneText" style="font-size: 0.75rem; color: var(--text-muted);">
+            Zone: Communal Work Bar · Universal Power Plugs Active ⚡
+          </div>
+        </div>
+
+        <!-- Camera Scanner HUD Simulation -->
+        <div class="scanner-hud" id="scannerHud">
+          <div class="scanner-viewfinder">
+            <div class="scanner-laser"></div>
+          </div>
+          <div style="position: absolute; bottom: 12px; font-size: 0.74rem; color: #FAF6F0; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 4px;">
+            Scanning table barcode...
+          </div>
+        </div>
+
+        <!-- Switch Table Controls -->
+        <div style="margin-bottom: 16px; text-align: left;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--color-crema); margin-bottom: 6px;">
+            Select / Switch Your Table Number:
+          </label>
+          <select id="tentTableSelect" onchange="handleTentTableChange(this.value)" style="width: 100%;">
+            <option value="T-01">Table T-01 — Window Bar Seat 1</option>
+            <option value="T-02">Table T-02 — Window Bar Seat 2</option>
+            <option value="T-03">Table T-03 — Window High Table 3</option>
+            <option value="T-04">Table T-04 — Window High Table 4</option>
+            <option value="T-05" selected>Table T-05 — Communal Work Bar 5 ⚡</option>
+            <option value="T-06">Table T-06 — Communal Work Bar 6 ⚡</option>
+            <option value="T-07">Table T-07 — Communal Work Bar 7 ⚡</option>
+            <option value="T-08">Table T-08 — Communal Work Bar 8 ⚡</option>
+            <option value="T-09">Table T-09 — Leather Booth 9 ⚡</option>
+            <option value="T-10">Table T-10 — Velvet Armchair 10</option>
+            <option value="T-11">Table T-11 — Reading Nook 11 ⚡</option>
+            <option value="T-12">Table T-12 — Garden Sun Deck 12 🐕</option>
+            <option value="T-13">Table T-13 — Garden Sun Deck 13 🐕</option>
+            <option value="T-14">Table T-14 — Garden Sun Deck 14 🐕</option>
+          </select>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-primary" onclick="simulateBarcodeScan()" style="flex: 1; justify-content: center; font-size: 0.82rem;">
+            <span>📷</span> Simulate Camera Scan
+          </button>
+          <button class="btn-secondary" onclick="copyTableOrderLink()" title="Copy Link to Order to This Table">
+            <span>📋</span> Copy Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Item Customizer Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="customizerModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeCustomizer()">✕</button>
+      
+      <div style="display: flex; gap: 16px; margin-bottom: 20px;">
+        <img id="custItemImg" src="" alt="" style="width: 90px; height: 90px; border-radius: var(--radius-md); object-fit: cover;">
+        <div>
+          <span class="badge badge-amber" id="custItemCat">Manual Brew</span>
+          <h3 id="custItemTitle" style="font-size: 1.25rem; margin: 4px 0;">Item Name</h3>
+          <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-gold);" id="custItemBasePrice">₹240</div>
+        </div>
+      </div>
+
+      <p id="custItemDesc" style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 18px;"></p>
+
+      <!-- Dynamic Options Form -->
+      <div id="custOptionsContainer" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+        <!-- Injected options -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button class="btn-icon" onclick="adjustCustQty(-1)">-</button>
+          <span id="custQtyDisplay" style="font-weight: 700; font-size: 1.1rem;">1</span>
+          <button class="btn-icon" onclick="adjustCustQty(1)">+</button>
+        </div>
+
+        <button class="btn-primary" id="btnConfirmAddToCart">
+          <span>🛒</span> Add to Order — <span id="custModalFinalPrice">₹240</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Gemini API & AI Configuration Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+      
+      <div class="badge badge-gold" style="margin-bottom: 8px;">AI Barista Engine</div>
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Aura AI Intelligence Settings</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 18px;">
+        Aura runs with a comprehensive built-in coffee reasoning engine for Third Wave Coffee Balewadi. You can also optionally connect your <strong>Google Gemini API Key</strong> for limitless multi-modal reasoning and live conversations.
+      </p>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">Google Gemini API Key (Optional)</label>
+        <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." style="width: 100%;">
+        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">
+          Stored securely in your local browser storage. If empty, the high-fidelity offline coffee neural engine is used.
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px; background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary);">
+        💡 <strong>Offline Capabilities Included:</strong><br>
+        • Full specialty coffee tasting profiles for Attikan, Baarbara, Kelagur, Monsoon Malabar.<br>
+        • Balewadi High Street store hours, Wi-Fi speed, seating occupancy, and acoustics.<br>
+        • Web Audio procedural acoustic sound generator (steaming, grinding, bell chimes, rain, lo-fi).<br>
+        • Speech synthesis & speech recognition.
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+        <button class="btn-primary" onclick="saveSettings()">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       BEACON SETUP MODAL (CUSTOMER SOCIAL VIBE RADAR)
+       ========================================================================== -->
+  <div class="modal-overlay" id="beaconSetupModal">
+    <div class="modal-content" style="max-width: 520px;">
+      <button class="modal-close" onclick="closeBeaconModal()">✕</button>
+
+      <div class="badge badge-amber" style="margin-bottom: 6px;">AI Vibe Radar</div>
+      <h3 style="font-size: 1.3rem; margin-bottom: 4px;">Customize Your Table Beacon</h3>
+      <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px;">
+        Control how you appear to other patrons sitting at Third Wave Coffee Balewadi High Street.
+      </p>
+
+      <div style="display: flex; gap: 14px; margin-bottom: 14px; align-items: center;">
+        <div style="text-align: center;">
+          <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Avatar</label>
+          <div class="avatar-select-bubble" id="beaconAvatarBubble" onclick="cycleAvatarEmoji()" title="Click to change avatar emoji" style="width: 52px; height: 52px; font-size: 1.8rem; background: var(--bg-elevated); border: 1px solid var(--border-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            👨‍💻
+          </div>
+          <span style="font-size: 0.68rem; color: var(--color-gold);">Tap to cycle</span>
+        </div>
+
+        <div style="flex: 1;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px;">Your Display Name / Handle</label>
+          <input type="text" id="beaconNameInput" value="Vaishnav" placeholder="e.g. Vaishnav" style="width: 100%;">
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px;">Your Role / Tagline</label>
+        <input type="text" id="beaconRoleInput" value="AI Engineer / Tech Founder" placeholder="e.g. Product Designer, AI Developer..." style="width: 100%;">
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px;">Current Vibe & Interaction Status</label>
+        <select id="beaconVibeSelect" style="width: 100%;">
+          <option value="focus">💻 Deep Focus Sprint (Silent Co-Working)</option>
+          <option value="chat">☕ Open for Casual Coffee Chat</option>
+          <option value="brainstorm">🚀 Startup & Tech Brainstorm</option>
+          <option value="reading">📚 Reading & Quiet Mode</option>
+          <option value="pets">🐕 Pet Friendly Patio</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px;">Status Message / Bio</label>
+        <input type="text" id="beaconMsgInput" value="Building an AI connected roastery app. Down for coffee trivia or LLM chats." style="width: 100%;">
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px;">What Are You Currently Sipping?</label>
+        <select id="beaconBrewSelect" style="width: 100%;">
+          <option value="Artisan V60 Pourover (Baarbara Honey)">Artisan V60 Pourover (Baarbara Honey)</option>
+          <option value="Cascade Nitro Cold Brew">Cascade Nitro Cold Brew</option>
+          <option value="Balewadi Sunset Espresso Tonic">Balewadi Sunset Espresso Tonic</option>
+          <option value="Third Wave Signature Flat White (Oat)">Third Wave Signature Flat White (Oat)</option>
+          <option value="Sea Salt Spanish Latte">Sea Salt Spanish Latte</option>
+          <option value="Monsoon Malabar AA (French Press)">Monsoon Malabar AA (French Press)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 6px;">Your Interest Tags (Aura uses these for matching):</label>
+        <div class="flavor-chips-grid" id="beaconInterestChips">
+          <button type="button" class="flavor-tag-btn selected" onclick="toggleBeaconTag(this)">#GenAI</button>
+          <button type="button" class="flavor-tag-btn selected" onclick="toggleBeaconTag(this)">#SpecialtyCoffee</button>
+          <button type="button" class="flavor-tag-btn selected" onclick="toggleBeaconTag(this)">#SaaS</button>
+          <button type="button" class="flavor-tag-btn" onclick="toggleBeaconTag(this)">#UIUX</button>
+          <button type="button" class="flavor-tag-btn" onclick="toggleBeaconTag(this)">#DeepWork</button>
+          <button type="button" class="flavor-tag-btn selected" onclick="toggleBeaconTag(this)">#HarioV60</button>
+          <button type="button" class="flavor-tag-btn" onclick="toggleBeaconTag(this)">#Startups</button>
+          <button type="button" class="flavor-tag-btn" onclick="toggleBeaconTag(this)">#Reading</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn-secondary" onclick="closeBeaconModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveBeaconProfile()">Save My Beacon</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       AURA AI CONTEXTUAL ICEBREAKER MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="icebreakerModal">
+    <div class="modal-content" style="max-width: 520px;">
+      <button class="modal-close" onclick="closeIcebreakerModal()">✕</button>
+
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+        <div id="icebreakerTargetAvatar" style="width: 48px; height: 48px; font-size: 1.8rem; background: var(--bg-elevated); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          👩‍🎨
+        </div>
+        <div>
+          <div class="badge badge-amber" id="icebreakerTargetTableBadge">Table T-01 · Window Bar</div>
+          <h3 id="icebreakerTargetName" style="font-size: 1.2rem; margin-top: 2px;">Connect with Priya K.</h3>
+        </div>
+      </div>
+
+      <div class="ai-match-banner" id="icebreakerMatchBanner" style="background: rgba(221, 168, 83, 0.12); border: 1px solid var(--border-accent); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.8rem; color: var(--color-crema); margin-bottom: 16px;">
+        🔥 <strong>96% Aura Roastery Match:</strong> Both savoring single-origin manual brews and working in tech/design!
+      </div>
+
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px;">
+        Aura generated 3 personalized conversation sparks based on both your tastes and tables. Tap one to send:
+      </p>
+
+      <!-- 3 AI Generated Cards -->
+      <div class="icebreaker-cards-stack" id="icebreakerCardsStack">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Preview / Custom Edit Box -->
+      <div style="margin: 14px 0 16px;">
+        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Edit message before sending:</label>
+        <textarea id="icebreakerCustomText" rows="2" style="width: 100%; font-size: 0.82rem;"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button class="btn-secondary" onclick="copyIcebreakerText()">
+          <span>📋</span> Copy Text
+        </button>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-secondary" onclick="closeIcebreakerModal()">Cancel</button>
+          <button class="btn-primary" onclick="confirmSendIcebreaker()">
+            <span>🚀</span> Send to Table
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SEND A COFFEE OR TREAT GIFT TO TABLE X MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="sendGiftModal">
+    <div class="modal-content" style="max-width: 500px;">
+      <button class="modal-close" onclick="closeSendGiftModal()">✕</button>
+
+      <div class="badge badge-gold" style="margin-bottom: 6px;">Balewadi Social Gifting 🎁</div>
+      <h3 style="font-size: 1.25rem; margin-bottom: 4px;">Surprise Table <span id="giftTargetTableText">T-01</span></h3>
+      <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px;">
+        Send a coffee or warm bakery treat straight to their seat. Dispatched directly to the barista KDS with your note!
+      </p>
+
+      <!-- Quick Item Selection -->
+      <label style="display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 8px;">Select a Treat to Send:</label>
+      <div class="gift-items-grid" id="giftItemsGrid">
+        <div class="gift-item-option selected" data-id="brew-v60" data-name="Artisan V60 Pourover" data-price="240" onclick="selectGiftItem(this)">
+          <div style="font-size: 1.3rem;">☕</div>
+          <div>
+            <strong>Artisan V60 Pourover</strong>
+            <div style="color: var(--color-gold); font-size: 0.78rem;">₹240 · Baarbara Honey</div>
+          </div>
+        </div>
+        <div class="gift-item-option" data-id="coldbrew-tonic" data-name="Balewadi Sunset Espresso Tonic" data-price="270" onclick="selectGiftItem(this)">
+          <div style="font-size: 1.3rem;">🧊</div>
+          <div>
+            <strong>Balewadi Sunset Espresso Tonic</strong>
+            <div style="color: var(--color-gold); font-size: 0.78rem;">₹270 · Chilled Citrus</div>
+          </div>
+        </div>
+        <div class="gift-item-option" data-id="food-almond-croissant" data-name="Twice-Baked Almond Croissant" data-price="250" onclick="selectGiftItem(this)">
+          <div style="font-size: 1.3rem;">🥐</div>
+          <div>
+            <strong>Twice-Baked Almond Croissant</strong>
+            <div style="color: var(--color-gold); font-size: 0.78rem;">₹250 · Warm French Butter</div>
+          </div>
+        </div>
+        <div class="gift-item-option" data-id="food-biscoff-cheesecake" data-name="Lotus Biscoff Baked Cheesecake" data-price="290" onclick="selectGiftItem(this)">
+          <div style="font-size: 1.3rem;">🍰</div>
+          <div>
+            <strong>Lotus Biscoff Cheesecake</strong>
+            <div style="color: var(--color-gold); font-size: 0.78rem;">₹290 · Speculoos Crust</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Greeting Note -->
+      <div style="margin: 16px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <label style="font-size: 0.78rem; font-weight: 600;">Attached Greeting Card Note:</label>
+          <button type="button" class="btn-secondary" onclick="generateAiGiftNote()" style="font-size: 0.72rem; padding: 2px 8px;">
+            <span>✨</span> Aura Re-Write
+          </button>
+        </div>
+        <textarea id="giftCardNoteInput" rows="2" style="width: 100%; font-size: 0.82rem;"></textarea>
+      </div>
+
+      <div style="background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">
+        🛎️ <strong>Barista Delivery:</strong> Prepared immediately and brought directly to Table <span id="giftSummaryTarget">T-01</span> with your personalized greeting note.
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 1.1rem; font-weight: 700; color: var(--color-gold);" id="giftPriceDisplay">Total: ₹240</span>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-secondary" onclick="closeSendGiftModal()">Cancel</button>
+          <button class="btn-primary" onclick="confirmSendGift()">
+            <span>🎁</span> Send Gift to Table
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       IN-CAFE FLOATING SOCIAL NOTIFICATION TOAST
+       ========================================================================== -->
+  <div class="social-toast" id="socialToast">
+    <div class="toast-avatar" id="toastAvatar">☕</div>
+    <div class="toast-body">
+      <h5 id="toastTitle">New Coffee Wave</h5>
+      <p id="toastMessage">Priya from Table 1 sent a wave back!</p>
+    </div>
+    <button class="toast-close" onclick="dismissSocialToast()">✕</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/menu-data.js"></script>
+  <script src="js/store-data.js"></script>
+  <script src="js/community-data.js"></script>
+  <script src="js/audio-synth.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script src="js/barcode-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
